@@ -1,0 +1,16 @@
+---
+# defaults file for v98765_vmalert
+vmalert_version: 1.61.1
+vmalert_system_user: "vmalert"
+vmalert_system_group: "vmalert"
+vmalert_config_dir: "/etc/vmalert"
+vmalert_install_dir: "/usr/local/bin"
+vmalert_repo_dir: "/var/tmp/archive"
+# vm flags for env file
+# https://github.com/VictoriaMetrics/VictoriaMetrics#environment-variables
+vmalert_remoteWrite_url: "http://127.0.0.1:8428"
+vmalert_datasource_url: "http://127.0.0.1:8428"
+vmalert_remoteRead_url: "http://127.0.0.1:8428"
+vmalert_evaluationInterval: "1m"
+vmalert_rule: "{{ vmalert_config_dir }}/*.yaml"
+vmalert_notifier_url: "http://127.0.0.1:9093"

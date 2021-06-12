@@ -1,0 +1,29 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=Victoria-metrics vmalert
+After=network-online.target auditd.service
+
+[Service]
+Type=simple
+User={{ vmalert_system_user }}
+Group={{ vmalert_system_group }}
+EnvironmentFile=-/etc/default/vmalert
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStart={{ vmalert_install_dir }}/vmalert -envflag.enable -envflag.prefix=VMALERT_
+
+SyslogIdentifier=vmalert
+Restart=on-failure
+LimitNOFILE=infinity
+Restart=always
+
+PrivateTmp=yes
+ProtectHome=yes
+NoNewPrivileges=yes
+ProtectSystem=full
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=yes
+
+[Install]
+WantedBy=multi-user.target

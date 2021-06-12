@@ -1,0 +1,28 @@
+---
+# tasks file for v98765_vmalert
+
+- include: preinstall.yml
+  tags:
+    - vmalert_install
+    - vmalert_configure
+    - vmalert_run
+
+- include: install.yml
+  become: true
+  tags:
+    - vmalert_install
+
+- include: configure.yml
+  become: true
+  tags:
+    - vmalert_configure
+
+- name: ensure vmalert service is started and enabled
+  become: true
+  systemd:
+    daemon_reload: true
+    name: vmalert
+    state: started
+    enabled: true
+  tags:
+    - vmalert_run

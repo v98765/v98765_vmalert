@@ -1,0 +1,18 @@
+---
+- name: create env file
+  template:
+    src: vmalert.j2
+    dest: /etc/default/vmalert
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart vmalert
+
+- name: create systemd service unit
+  template:
+    src: vmalert.service.j2
+    dest: /lib/systemd/system/vmalert.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart vmalert

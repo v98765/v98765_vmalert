@@ -1,0 +1,17 @@
+---
+- name: Create vmalert system group
+  group:
+    name: "{{ vmalert_system_group }}"
+    state: present
+    system: true
+  when: vmalert_system_group != "root"
+
+- name: Create vmalert system user
+  user:
+    name: "{{ vmalert_system_user }}"
+    groups: "{{ vmalert_system_group }}"
+    append: true
+    shell: /usr/sbin/nologin
+    system: true
+    createhome: false
+  when: vmalert_system_user != "root"

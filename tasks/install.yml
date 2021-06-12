@@ -1,0 +1,33 @@
+---
+- block:
+
+    - name: "Ensure existense of /tmp/vmutils-v{{ vmalert_version }}"
+      ansible.builtin.file:
+        path: "/tmp/vmutils-v{{ vmalert_version }}"
+        state: directory
+
+    - name: Unarchive vmutils binaries
+      become: false
+      unarchive:
+        src: "{{ vmalert_repo_dir }}/vmutils-amd64-v{{ vmalert_version }}.tar.gz"
+        dest: "/tmp/vmutils-v{{ vmalert_version }}"
+        creates: "/tmp/vmutils-v{{ vmalert_version }}/vmalert-prod"
+      check_mode: false
+
+    - name: "Copy vmalert to {{ vmalert_install_dir }}"
+      ansible.builtin.copy:
+        src: "/tmp/vmutils-v{{ vmalert_version }}/vmalert-prod"
+        dest: "{{ vmalert_install_dir }}/vmalert"
+        owner: "{{ vmalert_system_user }}"
+        group: "{{ vmalert_system_group }}"
+        mode: 0755
+        remote_src: yes
+      notify: restart vmalert
+
+- name: create vmalert config directory
+  file:
+    path: "{{ vmalert_config_dir }}"
+    state: directory
+    owner: "{{ vmalert_system_user }}"
+    group: "{{ vmalert_system_group }}"
+    mode: 0755

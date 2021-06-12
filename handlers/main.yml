@@ -1,0 +1,14 @@
+---
+# handlers file for v98765_vmalert
+- name: restart vmalert
+  become: true
+  systemd:
+    daemon_reload: true
+    name: vmalert
+    state: restarted
+
+- name: reload vmalert
+  become: true
+  systemd:
+    name: vmalert
+    state: reloaded
