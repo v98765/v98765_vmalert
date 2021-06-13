@@ -32,7 +32,7 @@ Read this [https://docs.victoriametrics.com/#environment-variables](https://docs
 ```sh
 mkdir -p /var/tmp/archive
 cd /var/tmp/archive
-wget https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v1.57.1/vmutils-amd64-v1.61.1.tar.gz
+wget https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v1.61.1/vmutils-amd64-v1.61.1.tar.gz
 ```
 
 Example Playbook
