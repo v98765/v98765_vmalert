@@ -40,7 +40,7 @@ Example Playbook
 
 ```yaml
 ---
-- hosts: exporters
+- hosts: vmdb
   gather_facts: true
   connection: ssh
   roles:
@@ -59,7 +59,7 @@ Example Playbook
       tags:
         - vmalert_configure
 ```
-host_vars/exporters.yml
+host_vars/vmdb.yml
 ```yaml
 vmalert_rules_files:
   - rules/*.yaml
