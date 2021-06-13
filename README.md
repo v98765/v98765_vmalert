@@ -1,38 +1,70 @@
-Role Name
+Role Name: Victoriamertics vmalert
 =========
 
-A brief description of the role goes here.
+Deploy and configure [vmalert](https://docs.victoriametrics.com/vmalert.html)
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Ansible 2.10
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Name | Default Value | Description
+---|---|---
+`vmalert_version` | 1.61.1 | current version
+`vmalert_system_user` | "vmalert" |
+`vmalert_system_group` | "vmalert" | 
+`vmalert_config_dir` | "/etc/vmalert" | 
+`vmalert_install_dir` | "/usr/local/bin" | 
+`vmalert_repo_dir` | "/var/tmp/archive" | 
+`vmalert_remoteWrite_url` | "http://127.0.0.1:8428" | victoriametrics tsdb
+`vmalert_datasource_url` | "http://127.0.0.1:8428" | victoriametrics tsdb
+`vmalert_remoteRead_url` | "http://127.0.0.1:8428" | victoriametrics tsdb
+`vmalert_evaluationInterval` | "1m" |
+`vmalert_rule` | "{{ vmalert_config_dir }}/*.yaml" | rules
+`vmalert_notifier_url` | "http://127.0.0.1:9093" | prometheus alertmanager
 
-Dependencies
-------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Read this [https://docs.victoriametrics.com/#environment-variables](https://docs.victoriametrics.com/#environment-variables) аnd set more vars, put it into `templates/vmalert.j2`
+
+```sh
+mkdir -p /var/tmp/archive
+cd /var/tmp/archive
+wget https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v1.57.1/vmutils-amd64-v1.61.1.tar.gz
+```
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+```yaml
+---
+- hosts: exporters
+  gather_facts: true
+  connection: ssh
+  roles:
+    - v98765_vmalert
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
-
+  tasks:
+    - name: copy vmalert targets
+      copy:
+        src: "{{ item }}"
+        dest: "{{ vmalert_config_dir }}/"
+        force: true
+        owner: root
+        group: vmalert
+        mode: 0644
+      with_fileglob: "{{ vmalert_rules_files }}"
+      tags:
+        - vmalert_configure
+```
+host_vars/exporters.yml
+```yaml
+vmalert_rules_files:
+  - rules/*.yaml
+```
 License
 -------
 
 BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
