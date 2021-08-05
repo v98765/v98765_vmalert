@@ -13,9 +13,8 @@ ExecReload=/bin/kill -HUP $MAINPID
 ExecStart={{ vmalert_install_dir }}/vmalert -envflag.enable -envflag.prefix=VMALERT_
 
 SyslogIdentifier=vmalert
-Restart=on-failure
-LimitNOFILE=infinity
 Restart=always
+LimitNOFILE=infinity
 
 PrivateTmp=yes
 ProtectHome=yes
