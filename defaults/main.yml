@@ -1,6 +1,6 @@
 ---
 # defaults file for v98765_vmalert
-vmalert_version: 1.66.0
+vmalert_version: 1.66.2
 vmalert_system_user: "vmalert"
 vmalert_system_group: "vmalert"
 vmalert_config_dir: "/etc/vmalert"
