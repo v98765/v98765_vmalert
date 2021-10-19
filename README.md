@@ -55,6 +55,7 @@ Example Playbook
         owner: root
         group: vmalert
         mode: 0644
+        validate: "vmalert -dryRun -rule=%s"
       with_fileglob: "{{ vmalert_rules_files }}"
       tags:
         - vmalert_configure
