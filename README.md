@@ -16,7 +16,8 @@ Name | Default Value | Description
 `vmalert_version` | 1.67.0 | current version
 `vmalert_system_user` | "vmalert" |
 `vmalert_system_group` | "vmalert" | 
-`vmalert_config_dir` | "/etc/vmalert" | 
+`vmalert_config_dir` | "/etc/vmalert" | empty
+`vmalert_rule_dir` | "/var/lib/vmalert" | 
 `vmalert_install_dir` | "/usr/local/bin" | 
 `vmalert_repo_dir` | "/var/tmp/archive" | 
 `vmalert_remoteWrite_url` | "http://127.0.0.1:8428" | victoriametrics tsdb
