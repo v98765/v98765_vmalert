@@ -28,6 +28,14 @@
   file:
     path: "{{ vmalert_config_dir }}"
     state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: create vmalert rule directory
+  file:
+    path: "{{ vmalert_rule_dir }}"
+    state: directory
     owner: "{{ vmalert_system_user }}"
     group: "{{ vmalert_system_group }}"
     mode: 0755

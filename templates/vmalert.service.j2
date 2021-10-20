@@ -14,12 +14,12 @@ ExecStart={{ vmalert_install_dir }}/vmalert -envflag.enable -envflag.prefix=VMAL
 
 SyslogIdentifier=vmalert
 Restart=always
-LimitNOFILE=infinity
+ReadWriteDirectories={{ vmalert_rule_dir }}
 
 PrivateTmp=yes
 ProtectHome=yes
 NoNewPrivileges=yes
-ProtectSystem=full
+ProtectSystem=strict
 ProtectControlGroups=true
 ProtectKernelModules=true
 ProtectKernelTunables=yes
