@@ -24,7 +24,6 @@ Name | Default Value | Description
 `vmalert_datasource_url` | "http://127.0.0.1:8428" | victoriametrics tsdb
 `vmalert_remote_read_url` | "http://127.0.0.1:8428" | victoriametrics tsdb
 `vmalert_evaluation_interval` | "1m" |
-`vmalert_rule` | "{{ vmalert_rule_dir }}/*.yaml" | rules
 `vmalert_notifier_url` | "http://127.0.0.1:9093" | prometheus alertmanager
 
 
