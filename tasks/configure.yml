@@ -16,3 +16,13 @@
     group: root
     mode: 0644
   notify: restart vmalert
+
+- name: copy rules
+  copy:
+    src: "{{ item }}"
+    dest: "{{ vmalert_rule_dir }}/"
+    force: true
+    owner: root
+    group: root
+    mode: 0644
+  with_items: "{{ vmalert_rule_files }}"
