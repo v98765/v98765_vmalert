@@ -13,18 +13,18 @@ Role Variables
 
 Name | Default Value | Description
 ---|---|---
-`vmalert_version` | 1.67.0 | current version
+`vmalert_version` | 1.69.0 | current version
 `vmalert_system_user` | "vmalert" |
 `vmalert_system_group` | "vmalert" | 
 `vmalert_config_dir` | "/etc/vmalert" | empty
 `vmalert_rule_dir` | "/var/lib/vmalert" | 
 `vmalert_install_dir` | "/usr/local/bin" | 
 `vmalert_repo_dir` | "/var/tmp/archive" | 
-`vmalert_remoteWrite_url` | "http://127.0.0.1:8428" | victoriametrics tsdb
+`vmalert_remote_write_url` | "http://127.0.0.1:8428" | victoriametrics tsdb
 `vmalert_datasource_url` | "http://127.0.0.1:8428" | victoriametrics tsdb
-`vmalert_remoteRead_url` | "http://127.0.0.1:8428" | victoriametrics tsdb
-`vmalert_evaluationInterval` | "1m" |
-`vmalert_rule` | "{{ vmalert_config_dir }}/*.yaml" | rules
+`vmalert_remote_read_url` | "http://127.0.0.1:8428" | victoriametrics tsdb
+`vmalert_evaluation_interval` | "1m" |
+`vmalert_rule` | "{{ vmalert_rule_dir }}/*.yaml" | rules
 `vmalert_notifier_url` | "http://127.0.0.1:9093" | prometheus alertmanager
 
 
@@ -33,7 +33,7 @@ Read this [https://docs.victoriametrics.com/#environment-variables](https://docs
 ```sh
 mkdir -p /var/tmp/archive
 cd /var/tmp/archive
-wget https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v1.67.0/vmutils-amd64-v1.67.0.tar.gz
+wget https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v1.69.0/vmutils-amd64-v1.69.0.tar.gz
 ```
 
 Example Playbook
@@ -46,25 +46,6 @@ Example Playbook
   connection: ssh
   roles:
     - v98765_vmalert
-
-  tasks:
-    - name: copy vmalert targets
-      copy:
-        src: "{{ item }}"
-        dest: "{{ vmalert_config_dir }}/"
-        force: true
-        owner: root
-        group: vmalert
-        mode: 0644
-        validate: "vmalert -dryRun -rule=%s"
-      with_fileglob: "{{ vmalert_rules_files }}"
-      tags:
-        - vmalert_configure
-```
-host_vars/vmdb.yml
-```yaml
-vmalert_rules_files:
-  - rules/*.yaml
 ```
 License
 -------
