@@ -1,0 +1,18 @@
+---
+groups:
+  - name: vmetric
+    rules:
+      - alert: VMetricFailedExporter
+        expr: vm_promscrape_targets{type="static_configs", status="down"} > 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: 'Check http://vmagent-host:8429/targets'
+      - alert: VMetricNoData
+        expr: absent(vm_promscrape_targets{type="static_configs", status="down"})
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: 'Check vmagent-host'
