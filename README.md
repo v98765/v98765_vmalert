@@ -13,7 +13,7 @@ Role Variables
 
 Name | Default Value | Description
 ---|---|---
-`vmalert_version` | 1.69.0 | current version
+`vmalert_version` | 1.70.0 | current version
 `vmalert_system_user` | "vmalert" |
 `vmalert_system_group` | "vmalert" | 
 `vmalert_config_dir` | "/etc/vmalert" | empty
@@ -32,7 +32,7 @@ Read this [https://docs.victoriametrics.com/#environment-variables](https://docs
 ```sh
 mkdir -p /var/tmp/archive
 cd /var/tmp/archive
-wget https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v1.69.0/vmutils-amd64-v1.69.0.tar.gz
+wget https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v1.70.0/vmutils-amd64-v1.70.0.tar.gz
 ```
 
 Example Playbook
