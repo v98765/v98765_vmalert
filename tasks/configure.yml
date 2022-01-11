@@ -26,3 +26,4 @@
     group: root
     mode: 0644
   with_items: "{{ vmalert_rule_files }}"
+  notify: restart vmalert
